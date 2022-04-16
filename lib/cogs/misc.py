@@ -153,6 +153,10 @@ class RolesMenu(discord.ui.Select):
         # selected options. We only want the first one.
         # await interaction.response.send_message(embed=embed)
         AllRoles = []
+        KeptMood = db.field("SELECT FirstRole from moods WHERE UserID = ?",
+                            interaction.user.id) or "Neutral"
+        db.execute("UPDATE moods SET SecondRole = ? WHERE UserID = ?", KeptMood,
+                   interaction.user.id)
 
         for role in interaction.guild.roles:
             AllRoles.append(role)
@@ -162,7 +166,7 @@ class RolesMenu(discord.ui.Select):
         botPosition = get(interaction.guild.roles, id=955635233548541982).position
         roleCap = get(interaction.guild.roles, id=957128314055716894).position
         for role in AllRoles:
-            if role.position < botPosition and roleCap > role.position > 0 and role.id != 957529066632794222:
+            if role.position < botPosition and roleCap > role.position > 0 and role.id != 957529066632794222 and role.name != KeptMood:
                 if role in userRoleList:
                     await interaction.user.remove_roles(role)
 
@@ -184,6 +188,8 @@ class RolesMenu(discord.ui.Select):
                 color=NewRole.color
             )
             # await Salt.send(embed=dmEmbed)
+            db.execute("UPDATE moods SET FirstRole = ? WHERE UserID = ?", NewRole.name,
+                       interaction.user.id)
             LogChannel = await self.bot.fetch_channel(959626235229667438)
             await LogChannel.send(embed=dmEmbed)
             await interaction.response.send_message(embed=embed, ephemeral=True)
