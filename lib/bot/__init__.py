@@ -2,7 +2,7 @@ from asyncio import run as run_async
 from asyncio import sleep
 from datetime import datetime
 from glob import glob
-from pathlib import PurePath
+from pathlib import PurePath, Path
 from sys import platform
 
 import tzlocal
@@ -37,8 +37,12 @@ SaltID = 92276895185387520
 OWNER_IDS = [SaltID]
 
 # Grab Cogs
-COGPATH = PurePath('lib', 'cogs')
-COGS = [path.split(f"{os.sep}")[-1][:-3] for path in glob(f"{COGPATH.stem}")]
+COGPATH = Path('lib/cogs')
+print (list(COGPATH.glob('*.py')))
+for path in COGPATH.glob('*.py'):
+    print (path.stem.split(os.sep))
+COGS = [path.stem.split(os.sep)[-1] for path in (COGPATH.glob('*.py'))]
+print (COGS)
 
 
 class Ready(object):
