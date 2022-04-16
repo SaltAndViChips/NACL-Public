@@ -3,6 +3,7 @@ from asyncio import sleep
 from datetime import datetime
 from glob import glob
 from pathlib import Path
+from sys import platform
 
 import tzlocal
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -37,7 +38,7 @@ OWNER_IDS = [SaltID]
 
 # Grab Cogs
 COGPATH = Path("./lib/cogs/*.py")
-COGS = [path.split("\\" or "/")[-1][:-3] for path in glob(COGPATH)]
+COGS = [path.split(f"{os.sep}")[-1][:-3] for path in glob(COGPATH)]
 
 
 class Ready(object):
