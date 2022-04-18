@@ -146,6 +146,22 @@ class harassment(Cog):
             print("Sending " + randomimage)
             embed.set_image(url=f"{randomimage}")
             embed.set_footer(text="♥")
+            if action == "spit":
+                embed = Embed(
+                    title=f"{title}",
+                    description=f"Someone {action} on {ctx.author.mention}",
+                    color=0xFF5682
+                )
+            else:
+                embed = Embed(
+                    title=f"{title}",
+                    description=f"Someone {action} {ctx.author.mention}",
+                    color=0xFF5682
+                )
+            randomimage = choice(images)
+            print("Sending " + randomimage)
+            embed.set_image(url=f"{randomimage}")
+            embed.set_footer(text="♥")
         elif member is not None:
             if amount is None:
 
@@ -162,7 +178,18 @@ class harassment(Cog):
                         description=f"{ctx.author.mention} {action}s on {member.mention}",
                         color=0xFF5682
                     )
-
+                elif action == "kiss" and member.id == 92276895185387520:
+                    embed = Embed(
+                        title=f"{title}",
+                        description=f"{member.mention} kisses {ctx.author.mention}",
+                        color=0xFF5682
+                    )
+                elif action == "kiss":
+                    embed = Embed(
+                        title=f"{title}",
+                        description=f"{ctx.author.mention} kisses {member.mention}",
+                        color=0xFF5682
+                    )
                 elif member.id == 92276895185387520:
                     embed = Embed(
                         title=f"{title}",
