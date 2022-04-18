@@ -1,8 +1,8 @@
 from lib.bot import bot
 
-VERSION = "0.1.5"
+VERSION = "0.3"
 UPDATE = """
-Added Many Actions, Database Interaction, Blacklisting and More!
+Scalable Action Commands, Role Menus, and Linux Compatibility!
 """
 
 bot.run(VERSION, UPDATE)

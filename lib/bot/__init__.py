@@ -101,8 +101,8 @@ class Bot(BotBase):
         db.commit()
 
     async def print_message(self):
-        self.stdout = self.get_channel(600001330920292353)
-        self.guild = self.get_guild(535693863696990208)
+        self.stdout = self.get_channel(600001330920292353) or self.get_channel(965478504038813796)
+        self.guild = self.get_guild(535693863696990208) or self.get_guild(955631286263885835)
         pass
 
 
@@ -224,11 +224,13 @@ Date: {self.dt.day:02d}/{self.dt.month:02d}/{self.dt.year}""")
             while not self.cogs_ready.all_ready():
                 await sleep(0.5)
             print("\nCog Setup Complete")
-
+            self.stdout = self.stdout = self.get_channel(600001330920292353) or self.get_channel(965478504038813796)
+            self.guild = self.get_guild(535693863696990208) or self.get_guild(955631286263885835)
             self.ready = True
+            # self.guild = self.get_guild(535693863696990208) or self.get_guild(955631286263885835)
 
             embed = Embed(
-                title="NaCl Online ***\♥***",
+                title=f"{bot.user.name} Online ***\♥***",
                 # description="You didn't break me",
                 color=0x00FA9A,
                 timestamp=datetime.utcnow()
@@ -239,17 +241,11 @@ Date: {self.dt.day:02d}/{self.dt.month:02d}/{self.dt.year}""")
             for name, value, inline in fields:
                 embed.add_field(name=name, value=value, inline=inline)
             embed.set_footer(text="♥")
-            # embed.set_author(name="Salt And Vi Chips", icon_url=self.guild.icon)
-            # embed.set_thumbnail(url=self.guild.icon_url)
-            # embed.set_image(url=self.guild.icon_url)
-            # await self.stdout.send(embed=embed)
+            embed.set_author(name="Salt And Vi Chips", icon_url=self.guild.icon.url)
+            embed.set_thumbnail(url=self.guild.icon.url)
+            embed.set_image(url=self.guild.icon.url)
+            await self.stdout.send(embed=embed)
 
-            # meta = self.get_cog("Meta")
-            # await meta.set()
-            # await self.process_commands("moodmenu")
-            # mmlocation = self.get_channel(956342454720802907)
-            # mmcontext = self.get_context(mmlocation)
-            # await mmcontext.invoke(mm)
 
 
 

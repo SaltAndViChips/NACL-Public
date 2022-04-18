@@ -16,11 +16,17 @@ class harassment(Cog):
         self.bot = bot
 
 
-    @command (name="avatar", aliases=["Avatar","pfp","PFP"])
-    async def info(self, ctx, *, member: Member = None):
+    @command (name="avatar", aliases=["Avatar","pfp","PFP","DA"])
+    async def pfp(self, ctx, *, member: Member = None):
         if not member:
             member = ctx.author
-        memberpfp = member.avatar_url
+        memberpfp = member.default_avatar.url
+        await ctx.send(f"{memberpfp}")
+    @command (name="serveravatar", aliases=["ServerAvatar","spfp","SPFP","SA"])
+    async def displaypfp(self, ctx, *, member: Member = None):
+        if not member:
+            member = ctx.author
+        memberpfp = member.display_avatar.url
         await ctx.send(f"{memberpfp}")
 
 
@@ -197,10 +203,9 @@ class harassment(Cog):
                     )
 
             randomimage = choice(images)
-            print("Sending " + randomimage)
             embed.set_image(url=f"{randomimage}")
             embed.set_footer(text="♥")
-            return (embed)
+        return embed, randomimage
 
 
     @sir.command(name="breed", aliases=["breedme", "breedpls", "breedplz", "breedmenow", "plingz1"], hidden=True)
@@ -213,10 +218,13 @@ class harassment(Cog):
         action = "breed"
         title = "Breeding Time!"
         embed = await self.sirembed(ctx, action, images, member, amount, title)
+        randomimage = embed[1]
+        embed=embed[0]
         if embed is None:
             pass
         else:
-            await ctx.send(embed=embed)
+            msg = await ctx.send(embed=embed)
+            # await ctx.send("just testing")
         # if member is None:
         #     embed = Embed(
         #         title="Say Please",
@@ -247,7 +255,6 @@ class harassment(Cog):
         #     embed.set_footer(text="♥")
         #     await ctx.send(embed=embed)
 
-
     @sir.command(name="spank", aliases=["spankme", "spankpls", "spankplz", "spankmenow", "plingz2"], hidden=True)
     async def spank(self, ctx, member: Optional[Member], amount: Optional[int]):
         with open("./lib/items/spanking.txt", "r", encoding="utf-8") as rl:
@@ -258,6 +265,8 @@ class harassment(Cog):
         action = "spank"
         title = "You've been Naughty!"
         embed = await self.sirembed(ctx, action, images, member, amount, title)
+        randomimage = embed[1]
+        embed = embed[0]
         if embed is None:
 
             pass
@@ -269,7 +278,6 @@ class harassment(Cog):
     async def addimage(self, ctx, file: Optional[str], *, NewLine: Optional[str]):
         ImagePath = Path('lib/items')
         Files = [path.stem.split(os.sep)[-1] for path in (ImagePath.glob('*.txt'))]
-        print (file, NewLine)
         if file == None:
             embed = Embed(
                 title = "Files!",
@@ -280,12 +288,36 @@ class harassment(Cog):
                 if tempfile.endswith("ing"):
                     WritableFiles.append(tempfile)
             embed.add_field(name="Files", value="\n".join(WritableFiles))
-            await ctx.send(embed=embed)
+            msg = await ctx.send(embed=embed)
+            if any ([hasattr(embed.image, "url") for embed in msg.embeds]):
+                for embed in msg.embeds:
+                    if embed.image.url != None:
+                        print (embed.image.url)
+
         elif file in Files:
             filepath = Path(f'lib/items/{file}.txt')
             if NewLine is None:
-                with open(filepath, "rb") as filetosend:
-                    await ctx.send(file=discord.File(filetosend, f"{file}.txt"))
+                if len(ctx.message.attachments) > 0:
+                    if any ([hasattr(attachment, "width") for attachment in ctx.message.attachments]):
+                        for attachment in ctx.message.attachments:
+                            if hasattr(attachment, "width"):
+                                if NewLine is None:
+                                    NewLine = attachment.url
+                                else:
+                                    NewLine += f"\n{attachment.url}"
+                        with open(filepath, "a+", encoding="utf-8") as tf:
+                            tf.seek(0)
+                            data = tf.read(100)
+                            if len(data) > 0:
+                                tf.write("\n")
+                            tf.write(NewLine)
+                        await ctx.send(f"Added New Line:\n\n{NewLine}\n\nto the file!")
+                    else:
+                        await ctx.send("You must attach a valid Image file!", delete_after=5)
+
+                else:
+                    with open(filepath, "rb") as filetosend:
+                        await ctx.send(file=discord.File(filetosend, f"{file}.txt"))
             else:
                 with open(filepath, "a+", encoding="utf-8") as tf:
                     tf.seek(0)
@@ -297,7 +329,7 @@ class harassment(Cog):
 
         else:
             await ctx.send("Invalid File Name!")
-
+        await ctx.message.delete()
 
     @sir.command(name="choke", aliases=["chokeme", "chokepls", "chokeplz", "chokemenow", "plingz3"], hidden=True)
     async def choke(self, ctx, member: Optional[Member], amount: Optional[int]):
@@ -309,11 +341,34 @@ class harassment(Cog):
         action = "choke"
         title = "Naughty Naughty"
         embed = await self.sirembed(ctx, action, images, member, amount, title)
+        randomimage = embed[1]
+        embed = embed[0]
         if embed is None:
             pass
         else:
             await ctx.send(embed=embed)
 
+    @sir.command(name="kiss", aliases=["kissme", "kisspls", "kissplz", "kissmenow"],
+                 hidden=True)
+    async def kiss(self, ctx, member: Optional[Member], amount: Optional[int]):
+        with open("./lib/items/kissing.txt", "r", encoding="utf-8") as rl:
+            images = []
+            for line in rl:
+                images.append(line)
+                # ctx, action, images, member: Optional[Member], amount: Optional[int], title
+        action = "kiss"
+        title = "Good Girl"
+        embed = await self.sirembed(ctx, action, images, member, amount, title)
+        randomimage = embed[1]
+        embed = embed[0]
+        if embed is None:
+            pass
+        else:
+            msg = await ctx.send(embed=embed)
+            if any ([hasattr(embed.image, "url") for embed in msg.embeds]):
+                for embed in msg.embeds:
+                    if embed.image.url == None:
+                        print (randomimage)
 
     @sir.command(name="hug", aliases=["hugme", "hugpls", "hugplz", "hugmenow", "plingz"], hidden=False)
     async def hug(self, ctx, member: Optional[Member], amount: Optional[int]):
