@@ -7,6 +7,9 @@ from discord import Member
 from discord import Embed
 from validators import url as urlcheck
 from discord.ext.commands import is_owner as devonly
+from discord.ext.commands import has_permissions, bot_has_permissions
+from pathlib import Path
+import os
 
 class harassment(Cog):
     def __init__(self, bot):
@@ -45,15 +48,15 @@ class harassment(Cog):
     async def bruh(self, ctx):
         await ctx.send('bruh')
 
-    @command(name="daddy", hidden=True)
-    async def daddy(self, ctx):
-        embed = Embed(
-            title="Who's a Good Boy?",
-            description=f"{ctx.author.mention} is a good boy!"
-        )
-
-        embed.set_thumbnail(url=f"{ctx.author.avatar_url}")
-        await ctx.send(embed=embed)
+    # @command(name="daddy", hidden=True)
+    # async def daddy(self, ctx):
+    #     embed = Embed(
+    #         title="Who's a Good Boy?",
+    #         description=f"{ctx.author.mention} is a good boy!"
+    #     )
+    #
+    #     embed.set_thumbnail(url=f"{ctx.author.avatar_url}")
+    #     await ctx.send(embed=embed)
 
     # @command(name="addtobreed", aliases=["addbreed", "ab", "atb", "a2b"], hidden=True)
     # @devonly()
@@ -256,39 +259,45 @@ class harassment(Cog):
         title = "You've been Naughty!"
         embed = await self.sirembed(ctx, action, images, member, amount, title)
         if embed is None:
+
             pass
         else:
             await ctx.send(embed=embed)
-        # if member is None:
-        #     embed = Embed(
-        #         title="I've been naughty!",
-        #         description=f"{ctx.author.mention} Wants to be spanked",
-        #         color=0xFF5682
-        #     )
-        #     randomimage = choice(spankimages)
-        #     print("Sending " + randomimage)
-        #     embed.set_image(url=f"{randomimage}")
-        #     embed.set_footer(text="♥")
-        #     await ctx.send(embed=embed)
-        # elif member is not None:
-        #     if ctx.author.id == 92276895185387520 or ctx.author.id == 285123592746696717:
-        #         if member.id == 92276895185387520:
-        #             embed = Embed(
-        #                 title="You've been naughty!",
-        #                 description=f"{member.mention} spanks {ctx.author.mention}",
-        #                 color=0xFF5682
-        #             )
-        #         else:
-        #             embed = Embed(
-        #                 title="You've been naughty!",
-        #                 description=f"{ctx.author.mention} spanks {member.mention}",
-        #                 color=0xFF5682
-        #             )
-        #     randomimage = choice(spankimages)
-        #     print("Sending " + randomimage)
-        #     embed.set_image(url=f"{randomimage}")
-        #     embed.set_footer(text="♥")
-        #     await ctx.send(embed=embed)
+
+    @sir.command(name="add", hidden=True)
+    @has_permissions(administrator=True)
+    async def addimage(self, ctx, file: Optional[str], *, NewLine: Optional[str]):
+        ImagePath = Path('lib/items')
+        Files = [path.stem.split(os.sep)[-1] for path in (ImagePath.glob('*.txt'))]
+        print (file, NewLine)
+        if file == None:
+            embed = Embed(
+                title = "Files!",
+                description = "You can add to the following files!"
+            )
+            WritableFiles = []
+            for tempfile in Files:
+                if tempfile.endswith("ing"):
+                    WritableFiles.append(tempfile)
+            embed.add_field(name="Files", value="\n".join(WritableFiles))
+            await ctx.send(embed=embed)
+        elif file in Files:
+            filepath = Path(f'lib/items/{file}.txt')
+            if NewLine is None:
+                with open(filepath, "rb") as filetosend:
+                    await ctx.send(file=discord.File(filetosend, f"{file}.txt"))
+            else:
+                with open(filepath, "a+", encoding="utf-8") as tf:
+                    tf.seek(0)
+                    data = tf.read(100)
+                    if len(data) > 0:
+                        tf.write("\n")
+                    tf.write(NewLine)
+                await ctx.send(f"Added New Line:\n\n{NewLine}\n\nto the file!")
+
+        else:
+            await ctx.send("Invalid File Name!")
+
 
     @sir.command(name="choke", aliases=["chokeme", "chokepls", "chokeplz", "chokemenow", "plingz3"], hidden=True)
     async def choke(self, ctx, member: Optional[Member], amount: Optional[int]):
@@ -313,7 +322,7 @@ class harassment(Cog):
             for line in rl:
                 images.append(line)
                 # ctx, action, images, member: Optional[Member], amount: Optional[int], title
-        action = "hugs"
+        action = "hug"
         title = "♥ ♥ ♥ ♥ ♥"
         embed = await self.sirembed(ctx, action, images, member, amount, title)
         if embed is None:
