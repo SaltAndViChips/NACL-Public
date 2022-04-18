@@ -245,9 +245,8 @@ class harassment(Cog):
                 # ctx, action, images, member: Optional[Member], amount: Optional[int], title
         action = "breed"
         title = "Breeding Time!"
-        embed = await self.sirembed(ctx, action, images, member, amount, title)
-        randomimage = embed[1]
-        embed=embed[0]
+        embed, randomimages = await self.sirembed(ctx, action, images, member, amount, title)
+
         if embed is None:
             pass
         else:
@@ -292,9 +291,8 @@ class harassment(Cog):
                 # ctx, action, images, member: Optional[Member], amount: Optional[int], title
         action = "spank"
         title = "You've been Naughty!"
-        embed = await self.sirembed(ctx, action, images, member, amount, title)
-        randomimage = embed[1]
-        embed = embed[0]
+        embed, randomimage = await self.sirembed(ctx, action, images, member, amount, title)
+
         if embed is None:
 
             pass
@@ -368,9 +366,7 @@ class harassment(Cog):
                 # ctx, action, images, member: Optional[Member], amount: Optional[int], title
         action = "choke"
         title = "Naughty Naughty"
-        embed = await self.sirembed(ctx, action, images, member, amount, title)
-        randomimage = embed[1]
-        embed = embed[0]
+        embed, randomimage = await self.sirembed(ctx, action, images, member, amount, title)
         if embed is None:
             pass
         else:
@@ -386,9 +382,7 @@ class harassment(Cog):
                 # ctx, action, images, member: Optional[Member], amount: Optional[int], title
         action = "kiss"
         title = "Good Girl"
-        embed = await self.sirembed(ctx, action, images, member, amount, title)
-        randomimage = embed[1]
-        embed = embed[0]
+        embed, randomimage = await self.sirembed(ctx, action, images, member, amount, title)
         if embed is None:
             pass
         else:
@@ -407,7 +401,7 @@ class harassment(Cog):
                 # ctx, action, images, member: Optional[Member], amount: Optional[int], title
         action = "hug"
         title = "♥ ♥ ♥ ♥ ♥"
-        embed = await self.sirembed(ctx, action, images, member, amount, title)
+        embed, randomimage = await self.sirembed(ctx, action, images, member, amount, title)
         if embed is None:
             pass
         else:
@@ -422,7 +416,7 @@ class harassment(Cog):
                 # ctx, action, images, member: Optional[Member], amount: Optional[int], title
         action = "pet"
         title = "Good Pet!"
-        embed = await self.sirembed(ctx, action, images, member, amount, title)
+        embed, randomimage = await self.sirembed(ctx, action, images, member, amount, title)
         if embed == None:
             pass
         else:
@@ -437,7 +431,7 @@ class harassment(Cog):
                 # ctx, action, images, member: Optional[Member], amount: Optional[int], title
         action = "cuddle"
         title = "Snuggle up!"
-        embed = await self.sirembed(ctx, action, images, member, amount, title)
+        embed, randomimage  = await self.sirembed(ctx, action, images, member, amount, title)
         if embed is None:
             pass
         else:
@@ -452,7 +446,7 @@ class harassment(Cog):
                 # ctx, action, images, member: Optional[Member], amount: Optional[int], title
         action = "spit"
         title = "Time for a reward!"
-        embed = await self.sirembed(ctx, action, images, member, amount, title)
+        embed, randomimage = await self.sirembed(ctx, action, images, member, amount, title)
         if embed is None:
             pass
         else:
