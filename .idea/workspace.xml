@@ -7,8 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="af63feb8-0911-402d-b63d-488b7fa90600" name="Default Changelist" comment="Allowed Modular Adding of images!">
-      <change beforePath="$PROJECT_DIR$/lib/items/rules.txt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/items/rules.txt" afterDir="false" />
+    <list default="true" id="af63feb8-0911-402d-b63d-488b7fa90600" name="Default Changelist" comment="STD_Out Reporting for duty!">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/cogs/harassment.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cogs/harassment.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -314,7 +315,28 @@
       <option name="project" value="LOCAL" />
       <updated>1650257898277</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Allowed Modular Adding of images to sir!">
+      <created>1650257919242</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1650257919242</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Allowed Modular Adding of images to sir!">
+      <created>1650257952840</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1650257952840</updated>
+    </task>
+    <task id="LOCAL-00017" summary="STD_Out Reporting for duty!">
+      <created>1650264647563</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1650264647563</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -341,7 +363,9 @@
     <MESSAGE value="2 Roles You Say?" />
     <MESSAGE value="Updated Build.sql to include 2 Roles&#10;&#10;__init__ now works locally&#10;&#10;Allowed local bot to run to Dev Bot!&#10;&#10;Added Hugs!" />
     <MESSAGE value="Allowed Modular Adding of images!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Allowed Modular Adding of images!" />
+    <MESSAGE value="Allowed Modular Adding of images to sir!" />
+    <MESSAGE value="STD_Out Reporting for duty!" />
+    <option name="LAST_COMMIT_MESSAGE" value="STD_Out Reporting for duty!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -360,11 +384,6 @@
           <url>file://$PROJECT_DIR$/lib/db/db.py</url>
           <line>32</line>
           <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/lib/cogs/harassment.py</url>
-          <line>363</line>
-          <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/lib/bot/__init__.py</url>
@@ -395,6 +414,26 @@
           <url>file://$PROJECT_DIR$/lib/cogs/misc.py</url>
           <line>293</line>
           <option name="timeStamp" value="100" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/lib/cogs/harassment.py</url>
+          <line>300</line>
+          <option name="timeStamp" value="106" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/lib/cogs/harassment.py</url>
+          <line>367</line>
+          <option name="timeStamp" value="111" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/lib/cogs/harassment.py</url>
+          <line>294</line>
+          <option name="timeStamp" value="113" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/lib/cogs/harassment.py</url>
+          <line>22</line>
+          <option name="timeStamp" value="119" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

@@ -22,6 +22,7 @@ class harassment(Cog):
             member = ctx.author
         memberpfp = member.default_avatar.url
         await ctx.send(f"{memberpfp}")
+
     @command (name="serveravatar", aliases=["ServerAvatar","spfp","SPFP","SA"])
     async def displaypfp(self, ctx, *, member: Member = None):
         if not member:
