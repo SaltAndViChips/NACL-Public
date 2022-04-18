@@ -45,6 +45,8 @@ CREATE TABLE IF NOT EXISTS blacklist (
 CREATE TABLE IF NOT EXISTS moods (
     UserID integer PRIMARY KEY,
     FirstMood text,
-    SecondMood text
+    SecondMood text,
+    FirstRole text,
+    SecondRole text
 
 )

@@ -38,11 +38,7 @@ OWNER_IDS = [SaltID]
 
 # Grab Cogs
 COGPATH = Path('lib/cogs')
-print (list(COGPATH.glob('*.py')))
-for path in COGPATH.glob('*.py'):
-    print (path.stem.split(os.sep))
 COGS = [path.stem.split(os.sep)[-1] for path in (COGPATH.glob('*.py'))]
-print (COGS)
 
 
 class Ready(object):
@@ -119,7 +115,7 @@ class Bot(BotBase):
         run_async(self.setup())
         try:
             with open("./lib/bot/token.0", "r", encoding="utf-8") as tf:
-                self.TOKEN = tf.read()
+                self.TOKEN = tf.read(59)
         except FileNotFoundError:
             self.TOKEN = os.getenv("DISCORD_TOKEN")
         super().run(self.TOKEN, reconnect=True)
