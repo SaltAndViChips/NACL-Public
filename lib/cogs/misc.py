@@ -15,8 +15,10 @@ import asyncio
 
 class MoodRolesMenu(discord.ui.Select):
 
+
     def __init__(self, bot):
         self.bot = bot
+        self.saferoles = [957529066632794222, 960000648785588254]
         GGServer = bot.get_guild(955631286263885835).roles
         roleList = []
         for role in GGServer:
@@ -27,13 +29,13 @@ class MoodRolesMenu(discord.ui.Select):
             elif role.id == 955635233548541982:
                 BotPosition = role.position
         for role in GGServer:
-            if role.position < BotPosition and RoleCap < role.position < MoodCap and role.id != 957529066632794222:
+            if role.position < BotPosition and RoleCap < role.position < MoodCap and role.id not in self.saferoles:
                 roleList.append(role.name)
         # roleList = [('Bratty'), ('Happy', '😊'), ('Needy', '🥰'), ('Non-Verbal', '😶'),
         #             ('Neutral', '😑'), ('Upset', '😓'), ('Sad', '😭'), ('Vibin\'', '🔊'),
         #             ('Not Vibin\'', '🔈'), ('Tired', '😴')]
         options = []
-        for Role in roleList:
+        for Role in sorted(roleList):
             options.append(
                 discord.SelectOption(label=f'{Role}', description=f'I am {Role}'))
 
@@ -85,7 +87,7 @@ class MoodRolesMenu(discord.ui.Select):
         moodCap = get(interaction.guild.roles, id=957128447065477130).position
         for role in AllRoles:
 
-            if role.position < botposition and moodCap > role.position > roleCap and role.id != 957529066632794222 and role.name != KeptMood:
+            if role.position < botposition and moodCap > role.position > roleCap and role.id not in self.saferoles and role.name != KeptMood:
                 if role in userRoleList:
                     await interaction.user.remove_roles(role)
 
@@ -125,6 +127,7 @@ class MoodRolesMenu(discord.ui.Select):
 
 class RolesMenu(discord.ui.Select):
     def __init__(self, bot):
+        self.saferoles = [957529066632794222, 960000648785588254]
         self.bot = bot
 
         GGServer = bot.get_guild(955631286263885835).roles
@@ -135,12 +138,12 @@ class RolesMenu(discord.ui.Select):
             elif role.id == 955635233548541982:
                 BotPosition = role.position
         for role in GGServer:
-            if role.position < BotPosition and RoleCap > role.position > 0 and role.id != 957529066632794222:
+            if role.position < BotPosition and RoleCap > role.position > 0 and role.id not in self.saferoles:
                 roleList.append(role.name)
 
         options = []
-        for Role in roleList:
-            options.append(discord.SelectOption(label=f'{Role}', description=f'I am a {Role}'))
+        for Role in sorted(roleList):
+            options.append(discord.SelectOption(label=f'{Role}', description=f'I\'m (a) {Role}'))
 
         super().__init__(placeholder='What role would you like princess?', min_values=1,
                          max_values=1,
@@ -166,7 +169,7 @@ class RolesMenu(discord.ui.Select):
         botPosition = get(interaction.guild.roles, id=955635233548541982).position
         roleCap = get(interaction.guild.roles, id=957128314055716894).position
         for role in AllRoles:
-            if role.position < botPosition and roleCap > role.position > 0 and role.id != 957529066632794222 and role.name != KeptMood:
+            if role.position < botPosition and roleCap > role.position > 0 and role.id not in self.saferoles and role.name != KeptMood:
                 if role in userRoleList:
                     await interaction.user.remove_roles(role)
 
