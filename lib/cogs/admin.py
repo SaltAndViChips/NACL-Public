@@ -122,12 +122,13 @@ class admin(Cog):
                 ServerBlacklist.append(target.id)
                 db.execute(f"INSERT OR IGNORE INTO {guildDB} (Blacklist) VALUES ({target.id})")
 
-    @command(name="quit", aliases="stop")
+    @command(name="quit", aliases=["stop"])
     @is_owner()
     async def stop_bot(self, ctx):
+        await ctx.send("Quitting!")
         stopchannel = self.bot.get_channel(965478504038813796)
         await stopchannel.send(socket.gethostname())
-        exit()
+        quit()
 
     @command(name="unblacklist", aliases=["ubl"])
     @has_permissions(administrator=True)

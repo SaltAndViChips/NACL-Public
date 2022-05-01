@@ -115,7 +115,7 @@ class Bot(BotBase):
         run_async(self.setup())
         try:
             with open("./lib/bot/token.0", "r", encoding="utf-8") as tf:
-                self.TOKEN = tf.read(59)
+                self.TOKEN = tf.readlines(1)[0]
         except FileNotFoundError:
             self.TOKEN = os.getenv("DISCORD_TOKEN")
         super().run(self.TOKEN, reconnect=True)
