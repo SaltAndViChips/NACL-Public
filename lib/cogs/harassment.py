@@ -452,6 +452,32 @@ class harassment(Cog):
         else:
             await ctx.send(embed=embed)
 
+    @command(name='breeds', hidden=True)
+    async def breedlist(self,ctx):
+        with open("./lib/items/breeding.txt", "r", encoding="utf-8") as rl:
+            images = []
+            for line in rl:
+                images.append(line)
+
+        y=0
+        tempimages = []
+        for x in images:
+            if y == 4:
+                y=0
+                for image in tempimages:
+                    await ctx.send(image)
+                tempimages = []
+
+
+            else:
+                y=y+1
+                tempimages.append(x)
+
+
+
+
+
+
     @command(name="meth", hidden=True)
     async def meth(self, ctx):
         embed=Embed(

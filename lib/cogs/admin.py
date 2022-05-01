@@ -3,8 +3,9 @@ from typing import Optional
 from discord import Member
 from discord.ext.commands import Cog
 from discord.ext.commands import command
-from discord.ext.commands import has_permissions, bot_has_permissions
+from discord.ext.commands import has_permissions, bot_has_permissions, is_owner
 from discord import Embed
+import socket
 from ..db import db
 
 
@@ -121,6 +122,13 @@ class admin(Cog):
                 ServerBlacklist.append(target.id)
                 db.execute(f"INSERT OR IGNORE INTO {guildDB} (Blacklist) VALUES ({target.id})")
 
+    @command()
+    @is_owner()
+    async def stop_bot(self, ctx):
+        stopchannel = self.bot.get_channel(965478504038813796)
+        await stopchannel.send(socket.gethostname())
+        exit()
+
     @command(name="unblacklist", aliases=["ubl"])
     @has_permissions(administrator=True)
     async def unblacklist(self, ctx, target: Optional[Member], *, id: Optional[int]):
@@ -179,6 +187,9 @@ class admin(Cog):
                 deleted = await ctx.channel.purge(limit=limit)
 
                 await ctx.send(f"Deleted {len(deleted):,} messages!", delete_after=5)
+
+     # make sure no one else uses it
+
 
 
     # @command(name="command", aliases=["cmd", "c"], hidden=True)
