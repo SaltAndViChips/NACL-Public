@@ -36,6 +36,7 @@ def get_prefix(Bot, message):
 SaltID = 92276895185387520
 
 OWNER_IDS = [SaltID]
+Server_Whitelist = [955631286263885835, 535693863696990208]
 
 # Grab Cogs
 COGPATH = Path('lib/cogs')
@@ -267,8 +268,11 @@ Date: {self.dt.day:02d}/{self.dt.month:02d}/{self.dt.year}""")
         if not message.author.bot:
             guild_db = f"\"{message.guild.id}\""
             server_blacklist = db.column(f"SELECT Blacklist FROM {guild_db}")
-            if str(message.author.id) not in server_blacklist:
-                await self.process_commands(message)
+            if message.guild.id not in Server_Whitelist:
+                if message.author.id in bot.owner_ids:
+                    await self.process_commands()
+            elif str(message.author.id) not in server_blacklist:
+                    await self.process_commands(message)
 
 
 bot = Bot()
