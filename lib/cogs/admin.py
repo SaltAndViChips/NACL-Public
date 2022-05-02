@@ -1,6 +1,8 @@
 from random import choice, randint
 from typing import Optional
-from discord import Member
+
+import discord.errors
+from discord import Member, Role
 from discord.ext.commands import Cog
 from discord.ext.commands import command
 from discord.ext.commands import has_permissions, bot_has_permissions, is_owner
@@ -132,10 +134,31 @@ class admin(Cog):
 
     @command(name="rolekick")
     @has_permissions(kick_members=True)
-    async def rolekick(self, ctx, role):
-        for member in ctx.guild.members:
-            if role in member.roles:
-                await ctx.guild.kick(member)
+    async def role_kick(self, ctx, role: Role):
+        kickedusers = []
+        kickedusersid = []
+        for member in role.members:
+            if member.id not in self.bot.owner_ids:
+                try:
+                    kickedusers.append(member.mention)
+                    await ctx.guild.kick(member)
+
+                except discord.errors.Forbidden as exc:
+                    kickedusers.append(member.mention)
+                    await ctx.send("I do not have permissions to kick that role!")
+            else:
+                await ctx.send(f"Attempted to kick {member.mention}, but cannot because they are a developer for this bot!")
+        if kickedusers:
+            embed=Embed(
+                title="Users Kicked!",
+                description=f"I have kicked everyone with the {role.mention} role!",
+            )
+            embed.add_field(name="Kicked Users", value="\n".join(kickedusers))
+            await ctx.send(embed=embed)
+        else:
+            await ctx.send("I couldn't Kick Anyone!")
+
+
 
     @command(name="unblacklist", aliases=["ubl"])
     @has_permissions(administrator=True)

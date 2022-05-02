@@ -13,6 +13,7 @@ from discord import Intents
 from discord.ext.commands import Bot as BotBase
 from discord.ext.commands import CommandNotFound, MissingRequiredArgument, BotMissingPermissions, \
     MissingPermissions, BadColourArgument
+from discord.errors import Forbidden
 from discord.ext.commands import MemberNotFound
 from discord.ext.commands import NotOwner
 from discord.ext.commands import when_mentioned_or
@@ -186,6 +187,8 @@ Date: {self.dt.day:02d}/{self.dt.month:02d}/{self.dt.year}""")
             await ctx.send(f"You are missing a required input!\n{exc}", delete_after=8)
         elif isinstance(exc, BreakExcept):
             pass
+        elif isinstance(exc, Forbidden):
+            await ctx.send(f"An Error has occurred:\n{exc}")
         elif isinstance(exc, MissingPermissions):
             embed = Embed(
                 title="You are missing permissions to run this command!",
@@ -212,6 +215,7 @@ Date: {self.dt.day:02d}/{self.dt.month:02d}/{self.dt.year}""")
 
         else:
             raise exc
+
 
     async def on_ready(self):
         if not self.ready:
