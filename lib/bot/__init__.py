@@ -270,7 +270,8 @@ Date: {self.dt.day:02d}/{self.dt.month:02d}/{self.dt.year}""")
             server_blacklist = db.column(f"SELECT Blacklist FROM {guild_db}")
             if message.guild.id not in Server_Whitelist:
                 if message.author.id in bot.owner_ids:
-                    await self.process_commands()
+                    await self.process_commands(message)
+
             elif str(message.author.id) not in server_blacklist:
                     await self.process_commands(message)
 
