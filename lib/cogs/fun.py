@@ -97,6 +97,11 @@ class fun(Cog):
     async def poly_parrot(self, ctx, *, phrase: Optional[str] = "**Silence Falls Over The Room**"):
         await ctx.send(phrase)
 
+
+    @command(name="scam")
+    async def scam(self, ctx):
+        await ctx.send(f"{ctx.author} is a scammer!\n\nBan them immediately!")
+
     @command(name="dice", aliases=["r", "roll"])
     async def roll_dice(self, ctx, die_string: str):
         dice, value = (int(term) for term in die_string.split("d"))

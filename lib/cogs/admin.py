@@ -130,6 +130,13 @@ class admin(Cog):
         await stopchannel.send(socket.gethostname())
         quit()
 
+    @command(name="rolekick")
+    @has_permissions(kick_members=True)
+    async def rolekick(self, ctx, role):
+        for member in ctx.guild.members:
+            if role in member.roles:
+                await ctx.guild.kick(member)
+
     @command(name="unblacklist", aliases=["ubl"])
     @has_permissions(administrator=True)
     async def unblacklist(self, ctx, target: Optional[Member], *, id: Optional[int]):
