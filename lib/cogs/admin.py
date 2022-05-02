@@ -6,6 +6,7 @@ from discord import Member, Role
 from discord.ext.commands import Cog
 from discord.ext.commands import command
 from discord.ext.commands import has_permissions, bot_has_permissions, is_owner
+from discord.utils import get
 from discord import Embed
 import socket
 from ..db import db
@@ -134,29 +135,36 @@ class admin(Cog):
 
     @command(name="rolekick")
     @has_permissions(kick_members=True)
-    async def role_kick(self, ctx, role: Role):
-        kickedusers = []
-        kickedusersid = []
-        for member in role.members:
-            if member.id not in self.bot.owner_ids:
-                try:
-                    kickedusers.append(member.mention)
-                    await ctx.guild.kick(member)
+    async def role_kick(self, ctx, role):
+        try:
+            check = await get(ctx.guild, id=role)
+            if check:
+                role = check
+        except:
+            pass
+        if role is Role:
+            kickedusers = []
+            kickedusersid = []
+            for member in role.members:
+                if member.id not in self.bot.owner_ids:
+                    try:
+                        kickedusers.append(member.mention)
+                        await ctx.guild.kick(member)
 
-                except discord.errors.Forbidden as exc:
-                    kickedusers.append(member.mention)
-                    await ctx.send("I do not have permissions to kick that role!")
+                    except discord.errors.Forbidden as exc:
+                        kickedusers.append(member.mention)
+                        await ctx.send("I do not have permissions to kick that role!")
+                else:
+                    await ctx.send(f"Attempted to kick {member.mention}, but cannot because they are a developer for this bot!")
+            if kickedusers:
+                embed=Embed(
+                    title="Users Kicked!",
+                    description=f"I have kicked everyone with the {role.mention} role!",
+                )
+                embed.add_field(name="Kicked Users", value="\n".join(kickedusers))
+                await ctx.send(embed=embed)
             else:
-                await ctx.send(f"Attempted to kick {member.mention}, but cannot because they are a developer for this bot!")
-        if kickedusers:
-            embed=Embed(
-                title="Users Kicked!",
-                description=f"I have kicked everyone with the {role.mention} role!",
-            )
-            embed.add_field(name="Kicked Users", value="\n".join(kickedusers))
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send("I couldn't Kick Anyone!")
+                await ctx.send("I couldn't Kick Anyone!")
 
 
 
