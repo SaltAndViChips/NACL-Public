@@ -39,7 +39,7 @@ class help(Cog):
                   ]
         for name, value, inline in fields:
             help_page_admin.add_field(name=name, value=value, inline=False)
-        help_page_admin.set_footer(value="Page: 2")
+        help_page_admin.set_footer(text="Page: 2")
         help_pages = [help_page1, help_page_admin]
 
         msg = await ctx.send(embed=help_pages[current])
