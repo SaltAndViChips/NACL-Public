@@ -30,8 +30,8 @@ class help(Cog):
             color=0x00Fa9a
         )
         fields = [("Page", "2", False),
-                  ("Blacklist", "Blacklist a user from using this bot", True),
-                  ("Clear", "Deletes up to 100 messages in the current channel", True),
+                  ("Blacklist", "Blacklist a user from using this bot", False),
+                  ("Clear", "Deletes up to 100 messages in the current channel", False),
                   ("History", "Show User Moderation History", True),
                   ("quit", "Restarts the bot (Dev Only, Sorry!)", True),
                   ("rolekick", "Kicks all users with a given role (Use the roles ID)", True),
@@ -39,7 +39,7 @@ class help(Cog):
                   ("warn", "Warns the user!", True)
                   ]
         for name, value, inline in fields:
-            help_page_admin.add_field(name=name, value=value, inline=inline)
+            help_page_admin.add_field(name=name, value=value, inline=False)
         help_pages = [help_page1, help_page_admin]
 
         msg = await ctx.send(embed=help_pages[current])
