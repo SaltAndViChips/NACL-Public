@@ -19,11 +19,10 @@ class help(Cog):
             description="Basic Commands",
             color=0x00Fa9a
         )
-        fields = [("Page", "1", False),
-                  ("History", "Shows Users Punishment History", True),
+        fields = [("History", "Shows Users Punishment History", True),
                   ("Slap", "Slaps The User (For Fun!)", True)]
         for name, value, inline in fields:
-            help_page1.add_field(name=name, value=value, inline=inline)
+            help_page1.add_field(name=name, value=value, inline=False)
         help_page_admin = Embed(
             title="Help | Admin Commands",
             color=0x00Fa9a
@@ -38,7 +37,7 @@ class help(Cog):
                   ]
         for name, value, inline in fields:
             help_page_admin.add_field(name=name, value=value, inline=False)
-        help_page_admin.set_footer(text="*Page*: 2")
+        # help_page_admin.set_footer(text="Page #2")
         help_pages = [help_page1, help_page_admin]
 
         msg = await ctx.send(embed=help_pages[current])
