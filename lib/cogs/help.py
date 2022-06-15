@@ -19,7 +19,7 @@ class help(Cog):
             description="Basic Commands",
             color=0x00Fa9a
         )
-        fields = [("Page", "1", True),
+        fields = [("Page", "1", False),
                   ("History", "Shows Users Punishment History", True),
                   ("Slap", "Slaps The User (For Fun!)", True)]
         for name, value, inline in fields:
@@ -29,7 +29,7 @@ class help(Cog):
             description="Admin Commands",
             color=0x00Fa9a
         )
-        fields = [("Page", "2", True),
+        fields = [("Page", "2", False),
                   ("Blacklist", "Blacklist a user from using this bot", True),
                   ("Clear", "Deletes up to 100 messages in the current channel", True),
                   ("History", "Show User Moderation History", True),
