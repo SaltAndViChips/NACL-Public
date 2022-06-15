@@ -29,8 +29,7 @@ class help(Cog):
             description="Admin Commands",
             color=0x00Fa9a
         )
-        fields = [("Page", "2", False),
-                  ("Blacklist", "Blacklist a user from using this bot", False),
+        fields = [("Blacklist", "Blacklist a user from using this bot", False),
                   ("Clear", "Deletes up to 100 messages in the current channel", False),
                   ("History", "Show User Moderation History", True),
                   ("quit", "Restarts the bot (Dev Only, Sorry!)", True),
@@ -40,6 +39,7 @@ class help(Cog):
                   ]
         for name, value, inline in fields:
             help_page_admin.add_field(name=name, value=value, inline=False)
+        help_page_admin.set_footer("Page: 2")
         help_pages = [help_page1, help_page_admin]
 
         msg = await ctx.send(embed=help_pages[current])
