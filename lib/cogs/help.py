@@ -24,17 +24,23 @@ class help(Cog):
                   ("Slap", "Slaps The User (For Fun!)", True)]
         for name, value, inline in fields:
             help_page1.add_field(name=name, value=value, inline=inline)
-        help_page2 = Embed(
+        help_page_admin = Embed(
             title="Help | Page 2",
-            description="Other Commands",
+            description="Admin Commands",
             color=0x00Fa9a
         )
         fields = [("Page", "2", True),
-                  ("Parrot", "Repeat back to the user", True),
-                  ("Roll", "Roll a set of dice.", True)]
+                  ("Blacklist", "Blacklist a user from using this bot", True),
+                  ("Clear", "Deletes up to 100 messages in the current channel", True),
+                  ("History", "Show User Moderation History", True),
+                  ("quit", "Restarts the bot (Dev Only, Sorry!)", True),
+                  ("rolekick", "Kicks all users with a given role (Use the roles ID)", True),
+                  ("unblacklist", "Unblacklists a user from using this bot", True),
+                  ("warn", "Warns the user!", True)
+                  ]
         for name, value, inline in fields:
-            help_page2.add_field(name=name, value=value, inline=inline)
-        help_pages=[help_page1, help_page2]
+            help_page_admin.add_field(name=name, value=value, inline=inline)
+        help_pages = [help_page1, help_page_admin]
 
         msg = await ctx.send(embed=help_pages[current])
 
