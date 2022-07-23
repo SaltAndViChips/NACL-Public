@@ -11,9 +11,10 @@ class Meta(Cog):
 
         bot.scheduler.add_job(self.set, CronTrigger(second=30))
 
+
     @property
     def message(self):
-        return self._message.format(users=len(self.bot.users), guilds=len(self.bot.guilds))
+        return self._message.format(users=len([x for x in self.bot.users if not x.bot]), guilds=len(self.bot.guilds))
 
     @message.setter
     def message(self, value):

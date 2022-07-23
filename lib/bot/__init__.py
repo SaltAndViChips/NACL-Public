@@ -121,6 +121,7 @@ class Bot(BotBase):
         except FileNotFoundError:
             self.TOKEN = os.getenv("DISCORD_TOKEN")
         super().run(self.TOKEN, reconnect=True)
+        self.TOKEN = ""
 
     async def on_connect(self):
         print(
@@ -275,5 +276,15 @@ Date: {self.dt.day:02d}/{self.dt.month:02d}/{self.dt.year}""")
             elif str(message.author.id) not in server_blacklist:
                     await self.process_commands(message)
 
+    async def on_message_delete(self, message):
+        if not message.author.bot:
+            logchannel = self.get_channel(991906374537711676)
+
+            embed = Embed(
+                title="Message Deleted!",
+                description = f"{message.author.mention} deleted a message in {message.channel.mention}\nMessage Content:\n\n{message.content}"
+            )
+            # await logchannel.send(f"Message: {message.content} was deleted by {message.author} in {message.channel.mention}")
+            await logchannel.send(embed=embed)
 
 bot = Bot()
