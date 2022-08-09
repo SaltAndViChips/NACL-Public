@@ -5,6 +5,7 @@ from discord.ext.commands import command, has_permissions
 from discord.ext.commands import is_owner as devonly
 from typing import Optional
 from discord.utils import get
+import random
 from discord.ui import Button, View
 from contextlib import suppress
 
@@ -420,6 +421,9 @@ class misc(Cog):
             await ctx.send("How are you feeling princess?", view=moodview)
             await ctx.send("Just picking a role?", view=roleview)
 
+
+
+
     @command(name="prefix")
     @has_permissions(manage_guild=True)
     async def change_prefix(self, ctx, new: str):
@@ -439,6 +443,13 @@ class misc(Cog):
                 color=0x00FA9A,
             )
             await ctx.send(embed=embed)
+
+    @command(name="8ball")
+    async def eightball(self, ctx):
+        responses = ["Yes!", "Probably So...", "Definitely", "No Shot", "It cannot be so.",
+                     "It is unclear", "Ask Again Later!",
+                     "L + Ratio + Maidenless + No Bitches (No. Dumbass)"]
+        await ctx.send(f"{random.choice(responses)}")
 
     # @command(name="moodmenu")
     # async def moodmenu(self,ctx):

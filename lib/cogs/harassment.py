@@ -381,7 +381,7 @@ class harassment(Cog):
                 images.append(line)
                 # ctx, action, images, member: Optional[Member], amount: Optional[int], title
         action = "kiss"
-        title = "Good Girl"
+        title = "Behave Yourself"
         embed, randomimage = await self.sirembed(ctx, action, images, member, amount, title)
         if embed is None:
             pass
@@ -415,7 +415,7 @@ class harassment(Cog):
                 images.append(line)
                 # ctx, action, images, member: Optional[Member], amount: Optional[int], title
         action = "pet"
-        title = "Good Pet!"
+        title = "♥ ♥ ♥ ♥ ♥"
         embed, randomimage = await self.sirembed(ctx, action, images, member, amount, title)
         if embed == None:
             pass
