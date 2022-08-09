@@ -139,23 +139,23 @@ Date: {self.dt.day:02d}/{self.dt.month:02d}/{self.dt.year}
 Date: {self.dt.day:02d}/{self.dt.month:02d}/{self.dt.year}
 """)
 
-    async def on_guild_join(self, ctx):
-        self.update_db()
-        owner = ctx.owner
-        ownerembed = Embed(
-            title=f"NaCl Bot | Version: {self.VERSION}",
-            description=f"""Hello {owner.mention}!
-I'm NaCl | A poorly coded bot with terrible support
-
-I've just been added to your server: {ctx.name}
-{ctx.system_channel.mention}
-
-
-If you aren't [Salt](https://nicecock.tech/) then you probably shouldn't be seeing this message!""",
-
-        )
-        ownerembed.set_footer(text="SaltAndViChips#0001")
-        await owner.send(embed=ownerembed)
+#     async def on_guild_join(self, ctx):
+#         self.update_db()
+#         owner = ctx.owner
+#         ownerembed = Embed(
+#             title=f"NaCl Bot | Version: {self.VERSION}",
+#             description=f"""Hello {owner.mention}!
+# I'm NaCl | A poorly coded bot with terrible support
+#
+# I've just been added to your server: {ctx.name}
+# {ctx.system_channel.mention}
+#
+#
+# If you aren't [Salt](https://nicecock.tech/) then you probably shouldn't be seeing this message!""",
+#
+#         )
+#         ownerembed.set_footer(text="SaltAndViChips#0001")
+#         await owner.send(embed=ownerembed)
 
     async def on_disconnect(self):
 
