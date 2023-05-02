@@ -19,7 +19,9 @@ from discord.ext.commands import NotOwner
 from discord.ext.commands import when_mentioned_or
 import os
 
-from ..db import db
+import configparser
+
+from lib.db import db
 
 
 def get_prefix(Bot, message):
@@ -116,8 +118,10 @@ class Bot(BotBase):
         print("Starting Up...")
         run_async(self.setup())
         try:
-            with open("./lib/bot/token.0", "r", encoding="utf-8") as tf:
-                self.TOKEN = tf.readlines(1)[0]
+            config = configparser.ConfigParser()
+            config.read(r"C:\Users\Brandon\PycharmProjects\NaClBot\auth.ini")
+
+            self.TOKEN = config.get('credentials', 'token')
         except FileNotFoundError:
             self.TOKEN = os.getenv("DISCORD_TOKEN")
         super().run(self.TOKEN, reconnect=True)
@@ -265,26 +269,34 @@ Date: {self.dt.day:02d}/{self.dt.month:02d}/{self.dt.year}""")
         #         message.author.bot:
         #     self.moodsetup = True
         #     await self.process_commands(message)
-
         if not message.author.bot:
             guild_db = f"\"{message.guild.id}\""
             server_blacklist = db.column(f"SELECT Blacklist FROM {guild_db}")
+            if message.author.id in bot.owner_ids:
+                if message.content == "update sc":
+                    await bot.tree.sync()
+                    print("Updated!")
             if message.guild.id not in Server_Whitelist:
                 if message.author.id in bot.owner_ids:
                     await self.process_commands(message)
+
 
             elif str(message.author.id) not in server_blacklist:
                     await self.process_commands(message)
 
     async def on_message_delete(self, message):
         if not message.author.bot:
-            logchannel = self.get_channel(991906374537711676)
+            guild_db = f"\"{message.guild.id}\""
+            log_whitelist = db.column(f"SELECT Blacklist FROM {guild_db}")
+            if message.guild.id in log_whitelist:
 
-            embed = Embed(
-                title="Message Deleted!",
-                description = f"{message.author.mention} deleted a message in {message.channel.mention}\nMessage Content:\n\n{message.content}"
-            )
-            # await logchannel.send(f"Message: {message.content} was deleted by {message.author} in {message.channel.mention}")
-            await logchannel.send(embed=embed)
+                logchannel = self.get_channel(991906374537711676)
+
+                embed = Embed(
+                    title="Message Deleted!",
+                    description = f"{message.author.mention} deleted a message in {message.channel.mention}\nMessage Content:\n\n{message.content}"
+                )
+                # await logchannel.send(f"Message: {message.content} was deleted by {message.author} in {message.channel.mention}")
+                await logchannel.send(embed=embed)
 
 bot = Bot()

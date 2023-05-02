@@ -133,6 +133,9 @@ class admin(Cog):
         await stopchannel.send(socket.gethostname())
         quit()
 
+
+
+
     @command(name="rolekick")
     @has_permissions(kick_members=True)
     async def role_kick(self, ctx, role):

@@ -1,40 +1,60 @@
-import math
-# from PyQt5 import QtWidgets
-# from PyQt5.QtWidgets import QApplication, QMainWindow
-# import sys
-# from dataclasses import dataclass
-#
-# def window():
-#     app = QApplication(sys.argv)
-#     win = QMainWindow()
-#     win.setGeometry(200,200,300,300)
-#     win.setWindowTitle("NaCl Control Panel")
-#     # win.setWindowIcon(icon=)
-#
-#     label = QtWidgets.QLabel(win)
-#     label.setText("Testing")
-#     label.move(50,50)
-#
-#     win.show()
-#     sys.exit(app.exec_())
-#
-# window()
-# @dataclass
-# def Super:
-#     TestValue = 0
-
-def main():
-    StartingNum=7
-    CurrentNum=StartingNum
-    steplist = []
-    while CurrentNum != 1:
-        if (CurrentNum % 2) == 0:
-            CurrentNum = CurrentNum / 2
-            steplist.append(CurrentNum)
-
-        else:
-            CurrentNum = CurrentNum*3+1
-            steplist.append(CurrentNum)
-    print (steplist)
-if __name__ == "__main__":
-    main()
+base_rpm = 792
+rpm_stat = 20
+output = ""
+talent = False
+RPMCaps = [72, 88, 90, 99, 110, 120, 132, 165, 180, 198, 220, 264, 360, 396, 440, 495, 565, 660, 792, 990, 1320,
+           1980, 3960]
+nextrpm = None
+output = ""
+if base_rpm:
+    try:
+        base_rpm = float(base_rpm)
+    except ValueError:
+        base_rpm = ""
+        base_rpm = False
+else:
+    base_rpm = False
+if rpm_stat:
+    try:
+        stat = float(rpm_stat)
+    except ValueError:
+        rpm_stat = ""
+        stat = False
+else:
+    stat = False
+if talent:
+    try:
+        talent = float(talent)
+    except ValueError:
+        talent = ""
+        talent = False
+else:
+    talent = False
+if stat and stat >= 100 or talent and talent >= 100:
+    output = "∞"
+elif base_rpm and stat and talent:
+    output = ((base_rpm / (1 - stat / 100)) / (1 - talent / 100))
+elif base_rpm and stat:
+    output = ((base_rpm / (1 - stat / 100)) / 1 - talent / 100)
+elif base_rpm and talent:
+    output = base_rpm / (1 - talent / 100)
+elif base_rpm:
+    output = base_rpm
+else:
+    output = 0
+output = (f"{float(output):.2f}")
+if output.replace('.', '', 1).isdigit():
+    truerpm = float(output)
+    if float(output) < 72:
+        nextrpm = float(output) + 1
+        actual = output
+    else:
+        for cap in RPMCaps:
+            if not nextrpm:
+                if float(output) >= cap:
+                    actual = cap
+                    pass
+                else:
+                    nextrpm = cap
+    output += (f" | Actual: {actual}")
+    print(output)

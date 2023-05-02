@@ -5,10 +5,12 @@ from typing import Optional
 from discord.ext.commands import command, group
 from discord import Member
 from discord import Embed
+from discord import app_commands
 from validators import url as urlcheck
 from discord.ext.commands import is_owner as devonly
 from discord.ext.commands import has_permissions, bot_has_permissions
 from pathlib import Path
+from discord.ext import commands
 import os
 
 class harassment(Cog):
@@ -30,98 +32,22 @@ class harassment(Cog):
         memberpfp = member.display_avatar.url
         await ctx.send(f"{memberpfp}")
 
-
-    @command(name="angel", aliases=["angle", "retard", "dumbass"])
-    async def angle(self, ctx):
-        user = await self.bot.fetch_user(689989339698036762)
-        embed = Embed(
-            title=f"Identifying Idiocy...",
-            description=f"Peak Idiocy Detected\n ID: <@{user.id}>",
-
-            color=0x00FA9A,
-        )
-        await ctx.send(embed=embed)
-
-    @command(name="allie", aliases=["loser", "Allie"], hidden=True)
-    async def say_allie(self, ctx):
-        embed = Embed(
-            title=f"Allie is a loser",
-            description=f"<@163119630368374785> is a loser.\nand she smells.",
-            color=0x00FA9A,
-        )
-        await ctx.send(embed=embed)
-
     @command(name="bruh")
     async def bruh(self, ctx):
         await ctx.send('bruh')
 
-    # @command(name="daddy", hidden=True)
-    # async def daddy(self, ctx):
-    #     embed = Embed(
-    #         title="Who's a Good Boy?",
-    #         description=f"{ctx.author.mention} is a good boy!"
-    #     )
-    #
-    #     embed.set_thumbnail(url=f"{ctx.author.avatar_url}")
-    #     await ctx.send(embed=embed)
+    @command(name="meth", hidden=True)
+    async def meth(self, ctx):
+        embed = Embed(
+            title="No.",
+            description="Not even a little.",
+            color=0x00fA9A
+        )
+        methage = await ctx.send(embed=embed)
+        await ctx.message.delete(delay=5)
+        await methage.delete(delay=5)
 
-    # @command(name="addtobreed", aliases=["addbreed", "ab", "atb", "a2b"], hidden=True)
-    # @devonly()
-    # async def addtobreed(self, ctx, userimage):
-    #     if urlcheck(userimage) == True:
-    #         with open("./lib/items/breeding.txt", "a+", encoding="utf-8") as rl:
-    #             rl.seek(0)
-    #             data = rl.read(100)
-    #             if len(data) > 0:
-    #                 rl.write("\n")
-    #             rl.write(f"{userimage}")
-    #         embed = Embed(
-    #             title="Adding new image!",
-    #             description=f"I have added {userimage} to my list of pictures!"
-    #         )
-    #         embed.set_image(url=f"{userimage}")
-    #         await ctx.send(embed=embed)
-    #     else:
-    #         await ctx.send("Please use a valid URL!")
-    #
-    # @command(name="addtospank", aliases=["addspank", "as", "ats", "a2s"], hidden=True)
-    # @devonly()
-    # async def addtospank(self, ctx, userimage):
-    #     if urlcheck(userimage) == True:
-    #         with open("./lib/items/spanking.txt", "a+", encoding="utf-8") as rl:
-    #             rl.seek(0)
-    #             data = rl.read(100)
-    #             if len(data) > 0:
-    #                 rl.write("\n")
-    #             rl.write(f"{userimage}")
-    #         embed = Embed(
-    #             title="Adding new image!",
-    #             description=f"I have added {userimage} to my list of pictures!"
-    #         )
-    #         embed.set_image(url=f"{userimage}")
-    #         await ctx.send(embed=embed)
-    #     else:
-    #         await ctx.send("Please use a valid URL!")
-    #
-    # @command(name="addtochoke", aliases=["addchoke", "ac", "atc", "a2c"], hidden=True)
-    # @devonly()
-    # async def addtochoke(self, ctx, userimage):
-    #     if urlcheck(userimage) == True:
-    #         with open("./lib/items/choking.txt", "a+", encoding="utf-8") as rl:
-    #             rl.seek(0)
-    #             data = rl.read(100)
-    #             if len(data) > 0:
-    #                 rl.write("\n")
-    #             rl.write(f"{userimage}")
-    #         embed = Embed(
-    #             title="Adding new image!",
-    #             description=f"I have added {userimage} to my list of pictures!"
-    #         )
-    #         embed.set_image(url=f"{userimage}")
-    #         await ctx.send(embed=embed)
-    #     else:
-    #         await ctx.send("Please use a valid URL!")
-    @group(passcontext=True)
+    @group(name="sir", invoke_without_commands=True)
     async def sir(self, ctx, member: Optional[Member], amount: Optional[int]):
         if ctx.invoked_subcommand is None:
             await ctx.send("You need to select an action!")
@@ -477,17 +403,9 @@ class harassment(Cog):
 
 
 
-
-    @command(name="meth", hidden=True)
-    async def meth(self, ctx):
-        embed=Embed(
-            title="No.",
-            description="Not even a little.",
-            color = 0x00fA9A
-        )
-        methage = await ctx.send(embed=embed)
-        await ctx.message.delete(delay=5)
-        await methage.delete(delay=5)
+    @app_commands.command(name="slashtest", description="This is a test")
+    async def test(self, interaction: discord.Interaction):
+        await interaction.response.send_message("This is a test", ephemeral=True)
 
     @Cog.listener()
     async def on_ready(self):

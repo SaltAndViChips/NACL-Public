@@ -1,3 +1,3 @@
-from . import db
+from lib.db import db
 
 db.build()
