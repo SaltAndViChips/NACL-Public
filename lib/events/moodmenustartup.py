@@ -17,5 +17,5 @@ async def moodmenu(self):
         await ctx.message.delete()
     async with ctx.channel.typing():
         deleted = await ctx.channel.purge(limit=100)
-    await ctx.send("How are you feeling princess?", view=moodview)
+    await ctx.send("How are you feeling?", view=moodview)
     await ctx.send("Just picking a role?", view=roleview)
